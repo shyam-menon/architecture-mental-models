@@ -1,30 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!-- Background -->
-  <rect width="64" height="64" rx="14" fill="#080A12"/>
+  <rect width="64" height="64" rx="14" fill="#0F1729"/>
 
   <!-- Radar rings -->
-  <circle cx="32" cy="32" r="26" fill="none" stroke="#1E2640" stroke-width="1.2"/>
-  <circle cx="32" cy="32" r="18" fill="none" stroke="#1E2640" stroke-width="1"/>
-  <circle cx="32" cy="32" r="10" fill="none" stroke="#1E2640" stroke-width="0.8"/>
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#2A3A6A" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#2A3A6A" stroke-width="1.2"/>
+  <circle cx="32" cy="32" r="10" fill="none" stroke="#2A3A6A" stroke-width="1"/>
 
-  <!-- Sector sweep (pie slice highlight) -->
-  <path d="M32,32 L32,6 A26,26 0 0,1 58,32 Z" fill="#00A4EF" fill-opacity="0.15"/>
-  <path d="M32,32 L32,6 A26,26 0 0,1 58,32 Z" fill="none" stroke="#00A4EF" stroke-width="0.8" stroke-opacity="0.5"/>
+  <!-- Sector sweep -->
+  <path d="M32,32 L32,6 A26,26 0 0,1 58,32 Z" fill="#00A4EF" fill-opacity="0.25"/>
+  <path d="M32,32 L32,6 A26,26 0 0,1 58,32 Z" fill="none" stroke="#00A4EF" stroke-width="1.5" stroke-opacity="0.9"/>
 
   <!-- Cross hairs -->
-  <line x1="32" y1="4"  x2="32" y2="60" stroke="#1E2640" stroke-width="0.8"/>
-  <line x1="4"  y1="32" x2="60" y2="32" stroke="#1E2640" stroke-width="0.8"/>
+  <line x1="32" y1="4"  x2="32" y2="60" stroke="#2A3A6A" stroke-width="1"/>
+  <line x1="4"  y1="32" x2="60" y2="32" stroke="#2A3A6A" stroke-width="1"/>
 
   <!-- Dots on the radar -->
-  <circle cx="46" cy="22" r="2.8" fill="#00A4EF"/>
-  <circle cx="46" cy="22" r="4.5" fill="none" stroke="#00A4EF" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="46" cy="22" r="3.5" fill="#00A4EF"/>
+  <circle cx="46" cy="22" r="5.5" fill="none" stroke="#00A4EF" stroke-width="1.2"/>
 
-  <circle cx="38" cy="18" r="2" fill="#7FBA00"/>
-  <circle cx="52" cy="36" r="1.8" fill="#F25022"/>
-  <circle cx="42" cy="30" r="1.6" fill="#FFB900"/>
-  <circle cx="50" cy="26" r="1.4" fill="#8F7BE8"/>
+  <circle cx="38" cy="18" r="2.5" fill="#7FBA00"/>
+  <circle cx="52" cy="36" r="2.2" fill="#F25022"/>
+  <circle cx="42" cy="30" r="2"   fill="#FFB900"/>
+  <circle cx="50" cy="26" r="1.8" fill="#C084FC"/>
 
   <!-- Centre dot -->
-  <circle cx="32" cy="32" r="2.5" fill="#00A4EF"/>
-  <circle cx="32" cy="32" r="5"   fill="none" stroke="#00A4EF" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="32" cy="32" r="3"   fill="#00A4EF"/>
+  <circle cx="32" cy="32" r="5.5" fill="none" stroke="#00A4EF" stroke-width="1"/>
 </svg>
