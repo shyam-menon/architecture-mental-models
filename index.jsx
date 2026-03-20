@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import Radar from "./Radar.jsx";
+import radarData from "./radar.json";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 
@@ -511,6 +513,18 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // ── Radar view state ────────────────────────────────────────────────────────
+  const [activeView, setActiveView] = useState("graph");
+  const [radarFilter, setRadarFilter] = useState(null);
+  const [radarSearch, setRadarSearch] = useState("");
+  const [radarEditMode, setRadarEditMode] = useState(false);
+
+  const handleSetView = (view) => {
+    setActiveView(view);
+    if (view === "radar") setSelected(null);
+    if (view === "graph") setRadarEditMode(false);
+  };
+
   // Load embedded seed on first mount
   useEffect(() => {
     const load = async () => {
@@ -564,7 +578,7 @@ export default function App() {
         background: "#0A0C18",
         flexShrink: 0,
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{
               width: 8, height: 8, borderRadius: "50%",
@@ -576,35 +590,101 @@ export default function App() {
             </span>
             <span style={{ color: "#3A4460", fontSize: 11 }}>/ architecture + AI</span>
           </div>
-          {/* Filter pills */}
-          <div style={{ display: "flex", gap: 4, marginLeft: 16 }}>
-            {[["all", "All", "#4EAEFF"], ...Object.entries(CATEGORY_META).map(([k, v]) => [k, v.glyph, v.color])].map(([key, label, color]) => (
+
+          {/* ── View toggle ───────────────────────────────────────────── */}
+          <div style={{ display: "flex", gap: 0, marginLeft: 12, border: "1px solid #1E2640", borderRadius: "2px", overflow: "hidden", flexShrink: 0 }}>
+            {[["graph", "⬡ Graph"], ["radar", "◎ Radar"]].map(([view, label], i) => (
               <button
-                key={key}
-                onClick={() => setFilter(key)}
+                key={view}
+                onClick={() => handleSetView(view)}
                 style={{
-                  background: filter === key ? color + "22" : "none",
-                  border: `1px solid ${filter === key ? color + "88" : "#1E2640"}`,
-                  color: filter === key ? color : "#4A5470",
-                  padding: "3px 10px", borderRadius: "2px",
+                  background: activeView === view ? "#4EAEFF22" : "none",
+                  border: "none",
+                  borderRight: i === 0 ? "1px solid #1E2640" : "none",
+                  color: activeView === view ? "#4EAEFF" : "#4A5470",
+                  padding: "3px 12px",
                   fontSize: 11, cursor: "pointer", fontFamily: "inherit",
                   transition: "all 0.15s",
                 }}
               >{label}</button>
             ))}
           </div>
+
+          {/* ── Context-sensitive filter pills ───────────────────────── */}
+          <div style={{ display: "flex", gap: 4, marginLeft: 8, flexWrap: "nowrap", overflowX: "auto" }}>
+            {activeView === "graph" ? (
+              [["all", "All", "#4EAEFF"], ...Object.entries(CATEGORY_META).map(([k, v]) => [k, v.glyph, v.color])].map(([key, label, color]) => (
+                <button
+                  key={key}
+                  onClick={() => setFilter(key)}
+                  style={{
+                    background: filter === key ? color + "22" : "none",
+                    border: `1px solid ${filter === key ? color + "88" : "#1E2640"}`,
+                    color: filter === key ? color : "#4A5470",
+                    padding: "3px 10px", borderRadius: "2px",
+                    fontSize: 11, cursor: "pointer", fontFamily: "inherit",
+                    transition: "all 0.15s", flexShrink: 0,
+                  }}
+                >{label}</button>
+              ))
+            ) : (
+              [[null, "All", "#4EAEFF"], ...radarData.categories.map(c => [c.id, c.short, c.color])].map(([catId, label, color]) => {
+                const isActive = radarFilter === catId;
+                return (
+                  <button
+                    key={catId ?? "all"}
+                    onClick={() => setRadarFilter(catId)}
+                    style={{
+                      background: isActive ? color + "22" : "none",
+                      border: `1px solid ${isActive ? color + "88" : "#1E2640"}`,
+                      color: isActive ? color : "#4A5470",
+                      padding: "3px 10px", borderRadius: "2px",
+                      fontSize: 11, cursor: "pointer", fontFamily: "inherit",
+                      transition: "all 0.15s", flexShrink: 0,
+                    }}
+                  >{label}</button>
+                );
+              })
+            )}
+          </div>
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="search models…"
-            style={{
-              background: "#0E1120", border: "1px solid #1E2640",
-              color: "#B0BAD0", padding: "5px 12px", borderRadius: "2px",
-              fontFamily: "inherit", fontSize: 11, width: 180, outline: "none",
-            }}
-          />
+          {/* ── Context-sensitive search + edit toggle ─────────────────── */}
+          {activeView === "graph" ? (
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="search models…"
+              style={{
+                background: "#0E1120", border: "1px solid #1E2640",
+                color: "#B0BAD0", padding: "5px 12px", borderRadius: "2px",
+                fontFamily: "inherit", fontSize: 11, width: 180, outline: "none",
+              }}
+            />
+          ) : (
+            <>
+              <input
+                value={radarSearch}
+                onChange={e => setRadarSearch(e.target.value)}
+                placeholder="search resources…"
+                style={{
+                  background: "#0E1120", border: "1px solid #1E2640",
+                  color: "#B0BAD0", padding: "5px 12px", borderRadius: "2px",
+                  fontFamily: "inherit", fontSize: 11, width: 180, outline: "none",
+                }}
+              />
+              <button
+                onClick={() => setRadarEditMode(v => !v)}
+                style={{
+                  background: radarEditMode ? "#4EAEFF22" : "none",
+                  border: `1px solid ${radarEditMode ? "#4EAEFF88" : "#1E2640"}`,
+                  color: radarEditMode ? "#4EAEFF" : "#4A5470",
+                  padding: "5px 12px", borderRadius: "2px",
+                  fontSize: 11, cursor: "pointer", fontFamily: "inherit",
+                }}
+              >✎ Edit</button>
+            </>
+          )}
           <button onClick={() => setShowSettings(true)} style={{
             background: "none", border: "1px solid #1E2640",
             color: "#4A5470", padding: "5px 12px", borderRadius: "2px",
@@ -615,6 +695,14 @@ export default function App() {
 
       {/* Body */}
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        {activeView === "radar" ? (
+          <Radar
+            filter={radarFilter}
+            search={radarSearch}
+            editMode={radarEditMode}
+          />
+        ) : (
+          <>
         <Sidebar models={models} />
         <div style={{ flex: 1, position: "relative" }}>
           {loading ? (
@@ -661,10 +749,12 @@ export default function App() {
             <span>click node to explore · click again to open detail</span>
           </div>
         </div>
+          </>
+        )}
       </div>
 
-      {/* Detail panel — click selected node again to open */}
-      {selected && (
+      {/* Detail panel — graph view only */}
+      {activeView === "graph" && selected && (
         <div
           style={{
             position: "absolute", right: 0, top: 52, bottom: 24,
