@@ -6,7 +6,7 @@
     { "id": "devops",       "label": "DevOps & Infra",         "short": "DevOps",   "color": "#FFB900" },
     { "id": "languages",    "label": "Languages & Frameworks", "short": "Lang",     "color": "#8F7BE8" },
     { "id": "security",     "label": "Security & Auth",        "short": "Security", "color": "#E74856" },
-    { "id": "genai",        "label": "AI Engineering",           "short": "GenAI",    "color": "#A52A2A" },
+    { "id": "genai",        "label": "AI Engineering",           "short": "AI Eng",   "color": "#A52A2A" },
     { "id": "nonfunctional","label": "Non-functional",         "short": "NFR",      "color": "#C084FC" }
   ],
   "topics": [
