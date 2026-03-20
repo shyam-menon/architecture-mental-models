@@ -217,7 +217,7 @@ const CATEGORY_LABELS = [
   { id: "apis",          label: "APIs &\nProtocols",       color: "#7FBA00" },
   { id: "data",          label: "Data &\nDatabases",       color: "#F25022" },
   { id: "devops",        label: "DevOps &\nInfra",         color: "#FFB900" },
-  { id: "nonfunctional", label: "Non-\nfunctional",        color: "#9B59B6" },
+  { id: "nonfunctional", label: "Non-\nfunctional",        color: "#C084FC" },
   { id: "languages",     label: "Languages &\nFrameworks", color: "#8F7BE8" },
   { id: "security",      label: "Security &\nAuth",        color: "#E74856" },
   { id: "genai",         label: "Gen\nAI",                 color: "#E67E22" },
@@ -254,10 +254,10 @@ export default function Radar({ filter, search, editMode }) {
 
   return (
     <div
-      style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column", alignItems: "center", padding: "12px 16px 24px", background: "#080A12", gap: 10, position: "relative" }}
+      style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column", alignItems: "center", padding: "8px 8px 16px", background: "#080A12", gap: 8, position: "relative" }}
       onMouseLeave={() => setTooltip(null)}
     >
-      <svg viewBox={VB} style={{ width: "100%", maxWidth: 840, maxHeight: "calc(100vh - 120px)" }}>
+      <svg viewBox={VB} style={{ width: "min(calc(100vw - 16px), calc(100vh - 72px))", height: "auto" }}>
         <defs>
           <radialGradient id="radar-bg-dark" cx="50%" cy="50%" r="50%">
             <stop offset="0%"   stopColor="#141828" />
@@ -274,7 +274,7 @@ export default function Radar({ filter, search, editMode }) {
         ))}
 
         {/* Accent overlays for the two narrow categories */}
-        <path d={sectorPath(182, 206, OUTER_R)} fill="#9B59B6" fillOpacity="0.12" />
+        <path d={sectorPath(182, 206, OUTER_R)} fill="#C084FC" fillOpacity="0.12" />
         <path d={sectorPath(310, 334, OUTER_R)} fill="#E67E22" fillOpacity="0.12" />
 
         {/* Ring boundaries */}
@@ -284,12 +284,12 @@ export default function Radar({ filter, search, editMode }) {
 
         {/* Ring labels */}
         {["Core", "Fundamentals", "Advanced", "Specialist"].map((lbl, i) => (
-          <text key={lbl} x={CX + 3} y={CY - RING_BOUNDARIES[i] + 13} textAnchor="middle" fontSize="11" fill="#303A58" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>{lbl}</text>
+          <text key={lbl} x={CX + 3} y={CY - RING_BOUNDARIES[i] + 15} textAnchor="middle" fontSize="15" fill="#303A58" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>{lbl}</text>
         ))}
 
         {/* Centre title */}
-        <text x={CX} y={CY - 8}  textAnchor="middle" fontSize="13" fontWeight="bold" fill="#2E3A5A" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>System Design</text>
-        <text x={CX} y={CY + 10} textAnchor="middle" fontSize="13" fontWeight="bold" fill="#2E3A5A" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>Radar</text>
+        <text x={CX} y={CY - 10} textAnchor="middle" fontSize="18" fontWeight="bold" fill="#2E3A5A" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>System Design</text>
+        <text x={CX} y={CY + 14} textAnchor="middle" fontSize="18" fontWeight="bold" fill="#2E3A5A" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>Radar</text>
 
         {/* Sector divider spokes */}
         {Object.values(SECTORS).map((s, i) => {
@@ -302,8 +302,8 @@ export default function Radar({ filter, search, editMode }) {
           const pos = labelPos(id);
           const lines = label.split("\n");
           return (
-            <text key={id} x={pos.x} y={pos.y - (lines.length - 1) * 8} textAnchor="middle" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>
-              {lines.map((ln, i) => <tspan key={i} x={pos.x} dy={i === 0 ? 0 : 16} fontSize="13" fontWeight="bold" fill={color}>{ln}</tspan>)}
+            <text key={id} x={pos.x} y={pos.y - (lines.length - 1) * 10} textAnchor="middle" fontFamily="'DM Mono','Fira Mono',monospace" style={{ userSelect: "none", pointerEvents: "none" }}>
+              {lines.map((ln, i) => <tspan key={i} x={pos.x} dy={i === 0 ? 0 : 20} fontSize="17" fontWeight="bold" fill={color}>{ln}</tspan>)}
             </text>
           );
         })}
@@ -332,7 +332,7 @@ export default function Radar({ filter, search, editMode }) {
           const onRight = topic.cx >= CX;
           const labelAnchor = onRight ? "start" : "end";
           const labelX = onRight ? topic.cx + dotR + 5 : topic.cx - dotR - 5;
-          const labelFontSize = filter ? "12" : "10";
+          const labelFontSize = filter ? "15" : "12";
 
           const dotContent = (
             <>

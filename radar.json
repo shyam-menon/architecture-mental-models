@@ -7,7 +7,7 @@
     { "id": "languages",    "label": "Languages & Frameworks", "short": "Lang",     "color": "#8F7BE8" },
     { "id": "security",     "label": "Security & Auth",        "short": "Security", "color": "#E74856" },
     { "id": "genai",        "label": "Generative AI",          "short": "GenAI",    "color": "#A52A2A" },
-    { "id": "nonfunctional","label": "Non-functional",         "short": "NFR",      "color": "#4B0082" }
+    { "id": "nonfunctional","label": "Non-functional",         "short": "NFR",      "color": "#C084FC" }
   ],
   "topics": [
     { "id": "first-principles-thinking",          "category": "architecture", "label": "First principles thinking",                      "href": "https://youtu.be/THE1ktA3G6s?si=yXmeyxoxZgX6hugP",                                                                                                       "cx": 420, "cy": 380 },
