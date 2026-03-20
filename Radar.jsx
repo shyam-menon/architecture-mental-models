@@ -220,7 +220,8 @@ const CATEGORY_LABELS = [
   { id: "nonfunctional", label: "Non-\nfunctional",        color: "#C084FC" },
   { id: "languages",     label: "Languages &\nFrameworks", color: "#8F7BE8" },
   { id: "security",      label: "Security &\nAuth",        color: "#E74856" },
-  { id: "genai",         label: "Gen\nAI",                 color: "#E67E22" },
+  { id: "genai",         label: "AI
+Engineering",            color: "#E67E22" },
 ];
 
 // ─── RADAR COMPONENT ──────────────────────────────────────────────────────────
